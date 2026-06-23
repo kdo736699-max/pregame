@@ -2,229 +2,222 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>首次会谈 · 和小柔的二十分钟</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --black:#0c0c11; --black-2:#16161f; --ink:#17171f;
-  --paper:#f3f0e9; --red:#d9202c; --red-deep:#9a0f18; --red-glow:rgba(217,32,44,.18);
-  --blue:#3f78b6; --blue-deep:#234e84; --blue-glow:rgba(63,120,182,.2);
-  --green:#3f9a78;
-  --serif:"Noto Serif SC","Songti SC",serif;
+  --paper:#f1ede4; --paper-2:#e7e1d4; --card:#fbf8f2;
+  --ink:#1e1e26; --ink-2:#5d5a52; --line:rgba(30,30,38,.14);
+  --red:#cb2230; --red-deep:#9a141f; --red-soft:rgba(203,34,48,.1);
+  --teal:#3f8a72; --teal-soft:rgba(63,138,114,.12);
+  --slate:#566b86;
+  --serif:"Noto Serif SC","FangSong","STFangsong","Songti SC","SimSun",serif;
   --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
-  --mono:"Space Mono","Noto Sans SC",monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%}
-body{font-family:var(--sans);background:var(--black);color:var(--paper);-webkit-font-smoothing:antialiased;overflow:hidden}
-#app{height:100vh;height:100dvh;display:flex;flex-direction:column;position:relative}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;overflow:hidden}
+#app{height:100vh;height:100dvh;display:flex;flex-direction:column;position:relative;overflow:hidden}
 
-/* ---- stage ---- */
-.stage{flex:1 1 46%;min-height:230px;position:relative;display:flex;align-items:center;justify-content:center;
-  background:radial-gradient(120% 120% at 50% 35%,#1c1c28 0%,#0a0a10 70%);overflow:hidden;transition:background .8s}
-.stage.warm{background:radial-gradient(120% 120% at 50% 35%,#2c1f20 0%,#0a0a10 72%)}
-.topbar{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;
-  padding:clamp(14px,2.4vw,26px) clamp(16px,3vw,34px);z-index:5}
-.t-title{font-family:var(--mono);font-size:clamp(11px,1.2vw,14px);letter-spacing:.16em;text-transform:uppercase;color:rgba(243,240,233,.55)}
-.t-title b{color:var(--red);font-weight:700;display:block;font-family:var(--serif);font-size:clamp(15px,1.8vw,20px);letter-spacing:.04em;margin-top:4px}
-/* trust meter */
-.meter{text-align:right;min-width:160px}
-.meter-lab{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:rgba(243,240,233,.5);text-transform:uppercase}
-.meter-lab b{color:var(--paper);font-weight:700}
-.meter-bar{margin-top:7px;width:clamp(120px,20vw,200px);height:7px;background:rgba(243,240,233,.14);border-radius:9px;position:relative;margin-left:auto;overflow:hidden}
-.meter-fill{position:absolute;left:0;top:0;height:100%;border-radius:9px;width:30%;background:linear-gradient(90deg,var(--blue),var(--red));transition:width .8s cubic-bezier(.5,0,.2,1)}
-.meter-bar.shake{animation:shk .4s}
-@keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+/* header */
+.head{flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;
+  padding:clamp(12px,2vh,22px) clamp(18px,4vw,54px) clamp(6px,1vh,12px);gap:16px}
+.h-title{font-family:var(--serif);font-weight:700;font-size:clamp(15px,1.8vw,21px);letter-spacing:.02em}
+.h-title small{display:block;font-family:var(--sans);font-weight:300;font-size:clamp(10px,1.1vw,12.5px);letter-spacing:.14em;color:var(--ink-2);margin-top:3px}
+.meter{text-align:right;flex:0 0 auto}
+.meter-lab{font-family:var(--sans);font-size:clamp(11px,1.15vw,13px);letter-spacing:.04em;color:var(--ink-2)}
+.meter-lab b{color:var(--red);font-weight:700;font-family:var(--serif)}
+.meter-bar{margin-top:6px;width:clamp(120px,18vw,180px);height:6px;background:var(--line);border-radius:9px;position:relative;margin-left:auto;overflow:hidden}
+.meter-fill{position:absolute;left:0;top:0;height:100%;border-radius:9px;width:30%;background:var(--red);transition:width .7s cubic-bezier(.5,0,.2,1)}
 
-/* character */
-.char-wrap{transition:transform .8s cubic-bezier(.4,0,.2,1);will-change:transform}
-.char-wrap.guarded{transform:translateY(10px) scale(.97)}
-.char-wrap.thaw{transform:translateY(4px) scale(.99)}
-.char-wrap.open{transform:translateY(0) scale(1)}
-.breathe{animation:breathe 4.5s ease-in-out infinite;transform-origin:50% 90%}
-@keyframes breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-.aura{transition:stroke .8s,opacity .8s}
-.mouth,.brow-l,.brow-r{transition:d .5s,transform .5s}
+/* main */
+.main{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:0.82fr 1.18fr;gap:clamp(16px,3vw,46px);
+  align-items:center;padding:0 clamp(18px,4vw,54px) clamp(14px,2vh,24px);max-width:1180px;margin:0 auto;width:100%}
+
+/* stage */
+.stage{height:100%;display:flex;align-items:center;justify-content:center;min-height:0}
+#char{height:auto;max-height:min(56vh,440px);width:auto;max-width:100%}
+.fig{transition:transform .45s cubic-bezier(.34,1.4,.5,1)}
+.breathe{animation:breathe 4.6s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.eyes{transform-box:fill-box;transform-origin:center;animation:blink 5.4s infinite}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
+.mouth.speaking{animation:talk .26s steps(2) infinite}
+@keyframes talk{0%{transform:scaleY(1)}100%{transform:scaleY(.4)}}
+.mouth{transform-box:fill-box;transform-origin:center}
+.brow-l,.brow-r,.mouth path,.iris{transition:all .5s}
 .arms{transition:opacity .6s,transform .6s}
-.sketch{opacity:0;transition:opacity .7s}
-.sketch.on{opacity:1}
-.fbubble{position:absolute;top:14%;right:8%;background:#fff;color:#17171f;font-family:var(--serif);font-weight:700;
-  padding:10px 16px;border-radius:14px 14px 14px 3px;font-size:clamp(13px,1.5vw,17px);opacity:0;transform:translateY(8px) scale(.9);
-  transition:all .4s;box-shadow:0 8px 24px rgba(0,0,0,.4);max-width:42vw}
-.fbubble.on{opacity:1;transform:none}
+.ring-prog{transition:stroke-dashoffset .7s cubic-bezier(.5,0,.2,1)}
+.sketch{opacity:0;transition:opacity .7s}.sketch.on{opacity:1}
 
-/* ---- script panel ---- */
-.panel{flex:0 0 auto;background:#13131b;border-top:1px solid rgba(243,240,233,.1);padding:clamp(18px,3vw,34px) clamp(18px,4vw,56px);
-  display:flex;flex-direction:column;gap:clamp(12px,1.6vw,18px);max-height:60vh;overflow-y:auto;scrollbar-width:thin}
-.who{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
-.youth-line{font-family:var(--serif);font-weight:500;font-size:clamp(19px,2.4vw,30px);line-height:1.42;min-height:1.4em;color:#f3f0e9}
-.youth-line .cursor{display:inline-block;width:.5ch;background:var(--red);animation:blink 1s steps(1) infinite;color:transparent}
-@keyframes blink{50%{opacity:0}}
-.opts{display:flex;flex-direction:column;gap:10px;margin-top:4px}
-.opt{font-family:var(--sans);font-weight:400;font-size:clamp(15px,1.7vw,19px);line-height:1.45;text-align:left;
-  padding:15px 20px;border-radius:9px;border:1.5px solid rgba(243,240,233,.18);background:rgba(243,240,233,.03);
-  color:var(--paper);cursor:pointer;transition:all .25s;opacity:0;transform:translateY(12px)}
+/* talk */
+.talk{height:100%;display:flex;flex-direction:column;justify-content:center;min-height:0;gap:clamp(12px,1.8vh,18px)}
+.who{font-family:var(--sans);font-size:clamp(11px,1.2vw,13px);letter-spacing:.16em;color:var(--red);text-transform:uppercase}
+.youth-line{font-family:var(--serif);font-weight:500;font-size:clamp(18px,2.3vw,28px);line-height:1.5;min-height:1.4em}
+.youth-line .cursor{display:inline-block;width:.5ch;background:var(--red);animation:bl 1s steps(1) infinite;color:transparent}
+@keyframes bl{50%{opacity:0}}
+.scroller{overflow-y:auto;min-height:0;scrollbar-width:thin;display:flex;flex-direction:column;gap:10px}
+.opt{font-family:var(--sans);font-weight:400;font-size:clamp(14px,1.5vw,17px);line-height:1.5;text-align:left;
+  padding:13px 18px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;
+  transition:all .22s;opacity:0;transform:translateY(10px)}
 .opt.show{opacity:1;transform:none}
-.opt:hover{border-color:var(--paper);background:rgba(243,240,233,.07)}
+.opt:hover{border-color:var(--ink);transform:translateX(3px)}
 .opt:disabled{cursor:default}
-.opt.good{border-color:var(--green);background:rgba(63,154,120,.14)}
-.opt.bad{border-color:var(--red);background:var(--red-glow)}
+.opt.good{border-color:var(--teal);background:var(--teal-soft)}
+.opt.bad{border-color:var(--red);background:var(--red-soft)}
 .opt.dim{opacity:.4}
-.opt .otag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;margin-left:8px}
+.fb{border-radius:10px;padding:clamp(14px,1.8vw,20px);opacity:0;max-height:0;overflow:hidden;transition:opacity .45s,max-height .55s}
+.fb.show{opacity:1;max-height:380px}
+.fb.good{background:var(--teal-soft);border:1px solid rgba(63,138,114,.4)}
+.fb.bad{background:var(--red-soft);border:1px solid rgba(203,34,48,.35)}
+.fb-react{font-family:var(--serif);font-weight:500;font-size:clamp(15px,1.7vw,20px);line-height:1.45}
+.fb-head{display:flex;align-items:center;gap:11px;margin:11px 0 7px;flex-wrap:wrap}
+.fb-mark{font-family:var(--sans);font-weight:500;font-size:12.5px;letter-spacing:.06em;padding:4px 12px;border-radius:5px;color:#fff}
+.fb.good .fb-mark{background:var(--teal)}.fb.bad .fb-mark{background:var(--red)}
+.fb-tech{font-family:var(--sans);font-weight:500;font-size:13px;color:var(--teal)}
+.fb-why{font-weight:300;font-size:clamp(13.5px,1.45vw,16px);line-height:1.62;color:var(--ink-2)}
+.fb-why b{font-weight:500;color:var(--ink)}
+.nextbtn{align-self:flex-start;margin-top:7px;font-family:var(--sans);font-weight:500;font-size:clamp(13.5px,1.5vw,16px);padding:10px 26px;border-radius:7px;border:0;cursor:pointer;transition:all .22s}
+.nextbtn.go{background:var(--ink);color:var(--paper)}.nextbtn.go:hover{background:#000;transform:translateX(3px)}
+.nextbtn.retry{background:transparent;border:1px solid var(--red);color:var(--red)}.nextbtn.retry:hover{background:var(--red);color:#fff}
 
-/* feedback */
-.fb{border-radius:10px;padding:clamp(15px,2vw,22px);opacity:0;max-height:0;overflow:hidden;transition:opacity .5s,max-height .6s}
-.fb.show{opacity:1;max-height:420px}
-.fb.good{background:rgba(63,154,120,.1);border:1px solid rgba(63,154,120,.4)}
-.fb.bad{background:var(--red-glow);border:1px solid rgba(217,32,44,.4)}
-.fb-react{font-family:var(--serif);font-weight:500;font-size:clamp(16px,1.8vw,21px);line-height:1.45}
-.fb-head{display:flex;align-items:center;gap:10px;margin:14px 0 8px}
-.fb-mark{font-family:var(--mono);font-weight:700;font-size:13px;padding:4px 11px;border-radius:5px}
-.fb.good .fb-mark{background:var(--green);color:#fff}
-.fb.bad .fb-mark{background:var(--red);color:#fff}
-.fb-tech{font-family:var(--mono);font-size:13px;letter-spacing:.05em;color:var(--green)}
-.fb-why{font-weight:300;font-size:clamp(14px,1.5vw,17px);line-height:1.62;opacity:.9}
-.fb-why b{font-weight:600}
-.nextbtn{align-self:flex-start;margin-top:6px;font-family:var(--sans);font-weight:500;font-size:clamp(14px,1.5vw,17px);
-  padding:12px 28px;border-radius:8px;border:0;cursor:pointer;transition:all .25s}
-.nextbtn.go{background:var(--green);color:#fff}.nextbtn.go:hover{background:#357f63}
-.nextbtn.retry{background:transparent;border:1.5px solid var(--red);color:var(--red)}.nextbtn.retry:hover{background:var(--red);color:#fff}
-
-/* intro + win overlays */
-.overlay{position:absolute;inset:0;z-index:20;background:rgba(8,8,12,.96);display:flex;flex-direction:column;justify-content:center;
-  padding:clamp(28px,6vw,90px);overflow-y:auto;transition:opacity .6s}
+/* overlays */
+.overlay{position:absolute;inset:0;z-index:20;background:var(--paper);display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(26px,5vw,80px);overflow-y:auto;transition:opacity .5s}
 .overlay.hide{opacity:0;pointer-events:none}
-.ov-eyebrow{font-family:var(--mono);font-size:clamp(12px,1.2vw,14px);letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:18px;display:flex;align-items:center;gap:12px}
-.ov-eyebrow::before{content:"";width:34px;height:2px;background:var(--red)}
-.ov-title{font-family:var(--serif);font-weight:900;font-size:clamp(34px,6vw,76px);line-height:1.1;margin-bottom:22px}
-.ov-lede{font-weight:300;font-size:clamp(16px,1.9vw,23px);line-height:1.62;max-width:40ch;opacity:.85;margin-bottom:clamp(22px,3vw,34px)}
-.ov-lede b{font-weight:600;color:var(--red)}
-/* observation chips */
-.obs{display:flex;flex-direction:column;gap:11px;max-width:620px;margin-bottom:clamp(22px,3vw,34px)}
-.obs-row{display:flex;gap:14px;align-items:baseline;font-size:clamp(15px,1.6vw,19px);line-height:1.5;opacity:0;transform:translateX(-14px);transition:all .5s}
+.ov-eyebrow{font-family:var(--sans);font-weight:500;font-size:clamp(11px,1.2vw,13.5px);letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.ov-eyebrow::before{content:"";width:30px;height:2px;background:var(--red)}
+.ov-title{font-family:var(--serif);font-weight:900;font-size:clamp(32px,5.6vw,68px);line-height:1.12;margin-bottom:18px}
+.ov-lede{font-weight:300;font-size:clamp(15px,1.7vw,21px);line-height:1.6;max-width:42ch;color:var(--ink-2);margin-bottom:clamp(20px,2.6vw,30px)}
+.ov-lede b{font-weight:500;color:var(--ink)}
+.obs{display:flex;flex-direction:column;gap:9px;max-width:660px;margin-bottom:clamp(18px,2.6vw,28px)}
+.obs-row{display:flex;gap:14px;align-items:baseline;font-size:clamp(14px,1.5vw,18px);line-height:1.5;opacity:0;transform:translateX(-12px);transition:all .5s}
 .obs-row.show{opacity:1;transform:none}
-.obs-row .ob-k{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--blue);min-width:64px;flex:0 0 auto}
-.obs-row .ob-v{font-weight:300;opacity:.9}
-.refer{border-left:3px solid var(--red);padding:10px 0 10px 18px;font-weight:300;font-size:clamp(14px,1.5vw,17px);line-height:1.6;opacity:.78;max-width:580px;margin-bottom:clamp(22px,3vw,34px)}
-.refer b{font-weight:600;color:var(--paper);opacity:1}
-.startbtn{align-self:flex-start;font-family:var(--sans);font-weight:600;font-size:clamp(16px,1.7vw,20px);padding:16px 40px;border-radius:10px;border:0;background:var(--red);color:#fff;cursor:pointer;transition:all .25s}
-.startbtn:hover{background:var(--red-deep);transform:translateX(4px)}
-
-/* win */
-.win-techs{display:flex;flex-wrap:wrap;gap:9px;margin:8px 0 clamp(22px,3vw,32px);max-width:620px}
-.wtech{font-family:var(--mono);font-size:clamp(12px,1.3vw,15px);padding:8px 15px;border-radius:6px;border:1px solid var(--green);
-  color:#8fd0b6;background:rgba(63,154,120,.1);opacity:0;transform:scale(.8);transition:all .4s}
+.obs-row .ob-k{font-family:var(--serif);font-weight:700;font-size:clamp(14px,1.5vw,17px);color:var(--slate);min-width:54px;flex:0 0 auto}
+.obs-row .ob-v{font-weight:300;color:var(--ink-2)}
+.refer{border-left:3px solid var(--red);padding:9px 0 9px 18px;font-weight:300;font-size:clamp(13.5px,1.45vw,16.5px);line-height:1.6;color:var(--ink-2);max-width:620px;margin-bottom:clamp(20px,2.6vw,30px)}
+.refer b{font-weight:600;color:var(--ink)}
+.startbtn{align-self:flex-start;font-family:var(--sans);font-weight:500;font-size:clamp(15px,1.6vw,18px);padding:14px 38px;border-radius:8px;border:0;background:var(--red);color:#fff;cursor:pointer;transition:all .22s}
+.startbtn:hover{background:var(--red-deep);transform:translateX(3px)}
+.win-techs{display:flex;flex-wrap:wrap;gap:9px;margin:6px 0 clamp(20px,2.6vw,30px);max-width:640px}
+.wtech{font-family:var(--sans);font-weight:500;font-size:clamp(12.5px,1.3vw,15px);padding:7px 15px;border-radius:6px;border:1px solid var(--teal);color:var(--teal);background:var(--teal-soft);opacity:0;transform:scale(.85);transition:all .4s}
 .wtech.show{opacity:1;transform:none}
-.win-refl{font-family:var(--serif);font-weight:500;font-size:clamp(17px,2vw,25px);line-height:1.55;max-width:34ch;margin-bottom:18px}
-.win-refl .red{color:var(--red);font-weight:700}
-.win-note{font-weight:300;font-size:clamp(13px,1.4vw,16px);line-height:1.6;opacity:.6;max-width:44ch;border-left:2px solid rgba(243,240,233,.2);padding-left:16px;margin-bottom:clamp(22px,3vw,32px)}
+.win-refl{font-family:var(--serif);font-weight:500;font-size:clamp(17px,2vw,24px);line-height:1.55;max-width:34ch;margin-bottom:16px}
+.win-refl .red{color:var(--red)}
+.win-note{font-weight:300;font-size:clamp(12.5px,1.35vw,15px);line-height:1.6;color:var(--ink-2);opacity:.85;max-width:46ch;border-left:2px solid var(--line);padding-left:16px;margin-bottom:clamp(20px,2.6vw,30px)}
 
-@media (max-width:760px){
-  .stage{flex-basis:38%}
-  .fbubble{max-width:60vw;right:5%}
-  .panel{max-height:64vh}
+@media (max-width:880px){
+  .main{grid-template-columns:1fr;gap:8px;padding-bottom:18px}
+  .stage{flex:0 0 auto}
+  #char{max-height:28vh}
+  .talk{flex:1 1 auto}
 }
 @media (prefers-reduced-motion:reduce){
-  .breathe{animation:none}.opt{transition:none}
+  .breathe,.eyes,.mouth.speaking{animation:none}.opt{transition:none}
 }
 </style>
 </head>
 <body>
 <div id="app">
 
-  <!-- STAGE -->
-  <div class="stage" id="stage">
-    <div class="topbar">
-      <div class="t-title">首次会谈 · 学校社工<b>和小柔的二十分钟</b></div>
-      <div class="meter">
-        <div class="meter-lab">信任 · <b id="mLab">警惕</b></div>
-        <div class="meter-bar" id="mBar"><div class="meter-fill" id="mFill"></div></div>
-      </div>
+  <div class="head">
+    <div class="h-title">首次会谈 · 和小柔的二十分钟<small>优势视角 × 焦点解决取向 · 互动演示</small></div>
+    <div class="meter">
+      <div class="meter-lab">信任 <b id="mNum">3</b>/10 · <span id="mLab">警惕</span></div>
+      <div class="meter-bar"><div class="meter-fill" id="mFill"></div></div>
     </div>
+  </div>
 
-    <div class="char-wrap guarded breathe" id="charWrap">
-      <svg width="240" height="290" viewBox="0 0 240 290" id="char">
-        <circle class="aura" cx="120" cy="140" r="104" fill="none" stroke="#3f78b6" stroke-width="2" opacity=".35"/>
-        <!-- chair hint -->
-        <line x1="70" y1="288" x2="70" y2="250" stroke="rgba(243,240,233,.18)" stroke-width="4"/>
-        <line x1="170" y1="288" x2="170" y2="250" stroke="rgba(243,240,233,.18)" stroke-width="4"/>
-        <line x1="60" y1="250" x2="180" y2="250" stroke="rgba(243,240,233,.18)" stroke-width="4"/>
-        <!-- hoodie body -->
-        <path d="M52 270 C52 198 84 178 120 178 C156 178 188 198 188 270 Z" fill="#2a2d3a"/>
-        <path d="M120 178 C150 178 178 192 184 250 L56 250 C62 192 90 178 120 178 Z" fill="#23252f"/>
-        <!-- neck -->
-        <rect x="108" y="150" width="24" height="30" rx="8" fill="#eccbb4"/>
-        <!-- head -->
-        <circle cx="120" cy="116" r="46" fill="#f2dcc9"/>
-        <!-- ears -->
-        <circle cx="75" cy="118" r="7" fill="#eccbb4"/><circle cx="165" cy="118" r="7" fill="#eccbb4"/>
-        <!-- eyes -->
-        <ellipse cx="104" cy="120" rx="4.6" ry="6" fill="#2a2230"/>
-        <ellipse cx="138" cy="120" rx="4.6" ry="6" fill="#2a2230" id="eyeR"/>
-        <!-- brows -->
-        <path class="brow-l" id="browL" d="M95 105 L114 109" stroke="#2a2230" stroke-width="3" stroke-linecap="round" fill="none"/>
-        <path class="brow-r" id="browR" d="M145 105 L126 109" stroke="#2a2230" stroke-width="3" stroke-linecap="round" fill="none"/>
-        <!-- mouth -->
-        <path class="mouth" id="mouth" d="M108 142 Q120 138 132 142" stroke="#b06a55" stroke-width="3" stroke-linecap="round" fill="none"/>
-        <!-- hair: top + long fringe over right eye -->
-        <path d="M73 116 C70 74 96 60 120 60 C146 60 172 76 167 118 C160 96 150 86 150 86 C148 100 150 108 150 108 C150 108 138 92 132 88 C120 110 96 104 88 96 C86 108 80 116 73 116 Z" fill="#241f29"/>
-        <path d="M150 84 C162 96 160 132 150 150 L150 150 C150 120 148 100 146 90 Z" fill="#241f29"/>
-        <!-- arms crossed (guarded) -->
-        <g class="arms" id="arms">
-          <rect x="64" y="208" width="112" height="24" rx="12" fill="#2f3240" transform="rotate(-9 120 220)"/>
-          <rect x="64" y="220" width="112" height="24" rx="12" fill="#34384a" transform="rotate(9 120 232)"/>
-          <!-- long sleeve cuffs over hands -->
-          <rect x="60" y="200" width="22" height="22" rx="9" fill="#3a3e52"/>
-          <rect x="158" y="232" width="22" height="22" rx="9" fill="#3a3e52"/>
-        </g>
-        <!-- sketchbook (appears later) -->
-        <g class="sketch" id="sketch">
-          <rect x="138" y="214" width="46" height="34" rx="3" fill="#f3f0e9" transform="rotate(-12 160 230)"/>
-          <line x1="150" y1="226" x2="172" y2="222" stroke="#d9202c" stroke-width="2" transform="rotate(-12 160 230)"/>
-          <line x1="150" y1="234" x2="168" y2="231" stroke="#3f78b6" stroke-width="2" transform="rotate(-12 160 230)"/>
-          <rect x="180" y="206" width="5" height="26" rx="2" fill="#d9b24a" transform="rotate(28 182 219)"/>
+  <div class="main">
+    <div class="stage">
+      <svg viewBox="0 0 220 260" id="char">
+        <!-- progress ring -->
+        <circle cx="110" cy="124" r="96" fill="none" stroke="rgba(30,30,38,.08)" stroke-width="3"/>
+        <circle class="ring-prog" id="ring" cx="110" cy="124" r="96" fill="none" stroke="#cb2230" stroke-width="3"
+          stroke-linecap="round" transform="rotate(-90 110 124)" stroke-dasharray="603" stroke-dashoffset="603"/>
+        <g class="fig breathe" id="fig">
+          <!-- hair back -->
+          <path d="M64 120 C58 76 80 52 110 52 C140 52 162 76 156 120 C156 162 152 188 148 206 L72 206 C68 188 64 162 64 120 Z" fill="#3b332b"/>
+          <!-- sweater -->
+          <path d="M56 248 C56 196 82 178 110 178 C138 178 164 196 164 248 Z" fill="#c5bdac"/>
+          <path d="M110 178 C132 178 156 192 160 230 L60 230 C64 192 88 178 110 178 Z" fill="#bcb39f"/>
+          <!-- neck -->
+          <rect x="99" y="150" width="22" height="30" rx="8" fill="#ecd2bd"/>
+          <!-- head -->
+          <ellipse cx="110" cy="112" rx="46" ry="48" fill="#f2dcc8"/>
+          <!-- eyes -->
+          <g class="eyes" id="eyes">
+            <ellipse cx="92" cy="116" rx="6" ry="7.5" fill="#fff"/>
+            <ellipse cx="128" cy="116" rx="6" ry="7.5" fill="#fff"/>
+            <circle class="iris" id="irisL" cx="92" cy="117" r="4.4" fill="#2c241d"/>
+            <circle class="iris" id="irisR" cx="128" cy="117" r="4.4" fill="#2c241d"/>
+            <circle cx="90.5" cy="115" r="1.4" fill="#fff"/><circle cx="126.5" cy="115" r="1.4" fill="#fff"/>
+          </g>
+          <!-- brows -->
+          <path class="brow-l" id="browL" d="M82 102 Q92 99 102 103" stroke="#4a3f34" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <path class="brow-r" id="browR" d="M118 103 Q128 99 138 102" stroke="#4a3f34" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <!-- nose + mouth -->
+          <circle cx="110" cy="130" r="1.3" fill="#d9a98f"/>
+          <g class="mouth" id="mouth"><path id="mouthP" d="M101 142 Q110 140 119 142" stroke="#bd6f5e" stroke-width="2.6" fill="none" stroke-linecap="round"/></g>
+          <!-- bangs -->
+          <path d="M65 114 C62 74 84 56 110 56 C136 56 158 76 154 116 C147 92 137 84 137 84 C135 100 137 108 137 108 C137 108 125 90 120 86 C108 108 84 104 77 95 C75 108 71 114 65 114 Z" fill="#463c31"/>
+          <!-- red hair tie -->
+          <rect x="150" y="96" width="9" height="14" rx="3" fill="#cb2230" transform="rotate(12 154 103)"/>
+          <!-- arms / long sleeves crossed -->
+          <g class="arms" id="arms">
+            <rect x="62" y="204" width="96" height="22" rx="11" fill="#bcb39f" transform="rotate(-7 110 215)"/>
+            <rect x="62" y="216" width="96" height="22" rx="11" fill="#b3aa95" transform="rotate(7 110 227)"/>
+            <rect x="58" y="196" width="22" height="22" rx="9" fill="#c5bdac"/>
+            <rect x="140" y="226" width="22" height="22" rx="9" fill="#c5bdac"/>
+          </g>
+          <!-- sketchbook -->
+          <g class="sketch" id="sketch">
+            <rect x="120" y="206" width="42" height="32" rx="3" fill="#fbf8f2" stroke="#cbbfaf" stroke-width="1.5" transform="rotate(-12 141 222)"/>
+            <line x1="130" y1="216" x2="152" y2="213" stroke="#cb2230" stroke-width="2" transform="rotate(-12 141 222)"/>
+            <line x1="130" y1="223" x2="148" y2="220" stroke="#566b86" stroke-width="2" transform="rotate(-12 141 222)"/>
+          </g>
         </g>
       </svg>
     </div>
-    <div class="fbubble" id="fbubble">？</div>
-  </div>
 
-  <!-- SCRIPT PANEL -->
-  <div class="panel" id="panel">
-    <div class="who" id="who">小柔</div>
-    <div class="youth-line" id="youthLine"></div>
-    <div class="opts" id="opts"></div>
-    <div class="fb" id="fb"></div>
-  </div>
-
-  <!-- INTRO -->
-  <div class="overlay" id="intro">
-    <div class="ov-eyebrow">首次会谈模拟 · 优势视角实战</div>
-    <div class="ov-title">和小柔的<br>二十分钟</div>
-    <p class="ov-lede">你是一名学校社工。今天第一次见到 15 岁的小柔。<br>先<b>观察</b>，再开口——你说的每一句话，都会决定她是否愿意打开。</p>
-    <div class="obs" id="obs">
-      <div class="obs-row"><span class="ob-k">外貌</span><span class="ob-v">校服整洁，但袖口被拉得很长，盖住手背；刘海压得很低。</span></div>
-      <div class="obs-row"><span class="ob-k">姿态</span><span class="ob-v">坐在椅子最边上，书包抱在胸前，像随时准备走。</span></div>
-      <div class="obs-row"><span class="ob-k">言语</span><span class="ob-v">问一句，答一句，声音很小。</span></div>
-      <div class="obs-row"><span class="ob-k">情绪</span><span class="ob-v">警惕、疏离，偶尔翻个白眼——典型「被大人叫来」的样子。</span></div>
+    <div class="talk">
+      <div class="who">小柔</div>
+      <div class="youth-line" id="youthLine"></div>
+      <div class="scroller" id="scroller">
+        <div class="opts" id="opts" style="display:flex;flex-direction:column;gap:10px"></div>
+        <div class="fb" id="fb"></div>
+      </div>
     </div>
-    <p class="refer"><b>班主任转介：</b>近两月成绩骤降、上课走神、回避同学；周记里写过一句「觉得没什么意思」。</p>
-    <button class="startbtn" id="startBtn">开始会谈 →</button>
   </div>
 
-  <!-- WIN -->
+  <!-- intro -->
+  <div class="overlay" id="intro">
+    <div class="ov-eyebrow">首次会谈模拟</div>
+    <div class="ov-title">和小柔的二十分钟</div>
+    <p class="ov-lede">你是一名学校社工，今天第一次见到 15 岁的小柔。<br>先<b>观察</b>，再开口——你的每一次回应，都会影响她是否愿意继续。</p>
+    <div class="obs" id="obs">
+      <div class="obs-row"><span class="ob-k">外貌</span><span class="ob-v">校服整洁，但袖口被拉得很长盖住手背，刘海压得很低。</span></div>
+      <div class="obs-row"><span class="ob-k">姿态</span><span class="ob-v">坐在椅子最边上，书包抱在胸前，像随时准备离开。</span></div>
+      <div class="obs-row"><span class="ob-k">言语</span><span class="ob-v">问一句答一句，声音很小，几乎不主动开口。</span></div>
+      <div class="obs-row"><span class="ob-k">情绪</span><span class="ob-v">警惕、疏离——典型「被转介而来」的非自愿状态。</span></div>
+    </div>
+    <p class="refer"><b>转介信息：</b>近两月成绩骤降、上课走神、回避同学；周记中出现一句「觉得没什么意思」。</p>
+    <button class="startbtn" id="startBtn">进入会谈室 →</button>
+  </div>
+
+  <!-- win -->
   <div class="overlay hide" id="win">
-    <div class="ov-eyebrow">通关 · 一次成功的初次会谈</div>
-    <div class="ov-title">「我下周，<br>还能来吗？」</div>
-    <p class="ov-lede">她抬起头，刘海后面那只眼睛亮了一下。<br>她想<b>再来</b>——这就是初次会谈最好的信号。</p>
-    <div class="who" style="margin-bottom:6px">这一关你用到的</div>
+    <div class="ov-eyebrow">会谈结束 · 一次成立的初次会谈</div>
+    <div class="ov-title">「我下周，还能来吗？」</div>
+    <p class="ov-lede">她抬起头看了你一眼。<br>她愿意<b>再来</b>——这是初次会谈最关键的成果：关系的建立。</p>
+    <div class="who" style="margin-bottom:6px">本场用到的技术</div>
     <div class="win-techs" id="winTechs"></div>
-    <p class="win-refl">整一关，我没给过她一条「建议」。<br>我做的只是：相信她身上<span class="red">本来就有答案</span>（她还想画画），然后帮她自己看见。<br>这就是优势视角——<span class="red">案主，才是自己生活的专家。</span></p>
-    <p class="win-note">现实里，如果她流露出更明确的危险信号，评估安全永远是第一位的。但建立信任，往往是这一切的前提。</p>
-    <button class="startbtn" id="againBtn">再来一次 ↻</button>
+    <p class="win-refl">整场会谈，我没有给出一条「建议」。<br>我所做的，只是相信她<span class="red">本就拥有答案</span>，再帮她自己看见。<br>这正是优势视角——<span class="red">案主，才是自己生活的专家。</span></p>
+    <p class="win-note">在真实实务中，若来访者流露出更明确的危险信号，安全评估永远优先；而稳固的关系，往往是一切评估与干预得以发生的前提。</p>
+    <button class="startbtn" id="againBtn">重新开始 ↻</button>
   </div>
 
 </div>
@@ -232,201 +225,177 @@ body{font-family:var(--sans);background:var(--black);color:var(--paper);-webkit-
 <script>
 const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-/* ---------- story ---------- */
 const turns=[
  {line:"……是班主任让我来的。我没什么好说的。",
   opts:[
-   {t:"我看了你的周记，你写「觉得没什么意思」。为什么会这样想？",good:false,
+   {t:"我看了你的周记，你写「觉得没什么意思」，为什么会这样想？",good:false,
     react:"她猛地把头扭向一边：「周记是私人的。」",
-    why:"太快去碰最敏感的地方，还用了<b>「为什么」</b>——这在她听来就是审问。敏感议题，要等关系建立起来再碰。"},
-   {t:"被老师叫来，多少有点烦吧。没关系，这半小时你想聊什么都行，不想聊，也可以。",good:true,
-    react:"她愣了一下，抱书包的手松了些：「……反正也跑不掉。」",
-    tech:"未知的姿态 · 一般化",
-    why:"先<b>接住</b>「被叫来」的别扭（一般化），再把主动权<b>交还</b>给她。非自愿的来访者，最怕被规训。"},
-   {t:"你最近成绩掉得厉害，我们得谈谈怎么提上去。",good:false,
-    react:"她翻了个白眼：「你跟他们一个样。」",
-    why:"你站到了「学校」那边，她一秒就把你归进「大人」的阵营。<b>议程不该由你来定。</b>"}
+    why:"开场即触碰最敏感的内容，又以<b>「为什么」</b>追问，近似审问。敏感议题应在关系稳固后再进入。"},
+   {t:"被老师叫来，多少有点别扭吧。这半小时你想聊什么都行，不想聊也没关系。",good:true,
+    react:"她迟疑了一下，抱书包的手松开了些：「……反正也跑不掉。」",
+    tech:"一般化 · 未知姿态",
+    why:"先以<b>一般化</b>承接「被转介」的抵触，再把谈话的主导权交还给她。面对非自愿来访者，降低防御是第一步。"},
+   {t:"你最近成绩下滑得厉害，我们得谈谈怎么提上去。",good:false,
+    react:"她翻了个白眼：「你跟他们一样。」",
+    why:"你站到了「学校」一方，被迅速归类为「又一个大人」。<b>会谈议程不应由助人者单方设定。</b>"}
   ]},
  {line:"你们是不是都觉得，我有问题。",
   opts:[
    {t:"没有人觉得你有问题，你别多想。",good:false,
-    react:"她沉默了，眼神又冷下去。",
-    why:"一句「别多想」，<b>否定了她真实的感受</b>。她说有问题，不是要你反驳，是想被听见。"},
-   {t:"我才认识你五分钟，哪敢下结论。倒是我挺好奇——如果让你自己说，这阵子是什么感觉？",good:true,
-    react:"她迟疑了一下：「就是……什么都懒得弄。」",
-    tech:"未知姿态 · 确认知觉",
-    why:"承认自己「还不懂」，把<b>专家的位置还给她</b>；用开放的好奇，而不是判断。"},
-   {t:"别人怎么想不重要，关键你得振作起来。",good:false,
+    react:"她沉默下来，眼神又冷了。",
+    why:"「别多想」<b>否定了她的主观经验</b>。她陈述的不是事实判断，而是渴望被听见的感受。"},
+   {t:"我才认识你几分钟，不会急着下结论。我更想听你自己说——这阵子是什么感觉？",good:true,
+    react:"她停顿片刻：「就是……什么都懒得弄。」",
+    tech:"确认知觉 · 未知姿态",
+    why:"坦承自己「尚不了解」，把<b>解释权交还给她</b>，以开放好奇代替判断，邀请她自我表达。"},
+   {t:"别人怎么想不重要，关键是你得振作起来。",good:false,
     react:"她又把自己缩回椅子里。",
-    why:"过早的「打气」，本质是<b>说教</b>。它跳过了她此刻的感受，直接要她「好起来」。"}
+    why:"过早的鼓励本质上是<b>说教</b>，跳过了对当下感受的承接，等于要求她「立刻好起来」。"}
   ]},
  {line:"什么都懒得弄。以前我挺喜欢画画的，现在……也不想画了。",
   opts:[
-   {t:"为什么不画了？是不是发生了什么事？",good:false,
+   {t:"为什么不画了？是不是出了什么事？",good:false,
     react:"她耸耸肩：「没什么事。」话头又断了。",
-    why:"又是<b>「为什么」</b>＋往「原因 / 创伤」里挖。焦点解决不往回找伤口，<b>往前找资源</b>。"},
-   {t:"你以前喜欢画画呀。那最近——有没有哪一天，哪怕一点点，还想拿起笔的时候？",good:true,
-    react:"她想了想：「……上周有天晚上睡不着，乱画了几笔。画完，好像没那么烦了。」",
+    why:"再次落入<b>「为什么」</b>与「探因／追溯创伤」。焦点解决不回溯伤口，而是<b>向前寻找资源</b>。"},
+   {t:"你以前喜欢画画。那最近——有没有哪一刻，哪怕一点点，还想拿起笔？",good:true,
+    react:"她想了想：「……上周有天晚上睡不着，随手画了几笔。画完，好像没那么烦了。」",
     tech:"例外问句",
-    why:"这就是<b>「例外」</b>：问题本该发生、却没发生的时刻。它一定存在——而你刚帮她自己看见了。",
+    why:"这就是<b>例外</b>——问题本应出现却未出现的时刻。它必然存在，而你刚帮她亲口指认了它。",
     flag:"sketch"},
-   {t:"画画又不能当饭吃，还是先把学习顾好。",good:false,
-    react:"她冷笑一声，不说话了。",
-    why:"一句话否定了她唯一愿意提起的、<b>有光的东西</b>。你把「价值」定义成了成绩。"}
+   {t:"画画也不能当饭吃，还是先把学习顾好吧。",good:false,
+    react:"她冷笑一声，不再说话。",
+    why:"一句话否定了她唯一愿意提起的、<b>尚有微光的事物</b>，并把「价值」窄化为成绩。"}
   ]},
  {line:"（她第一次主动多说了一句）画完那晚，确实没那么难受。",
   opts:[
    {t:"那你应该每天都画，坚持下去。",good:false,
     react:"她皱眉：「又来了。」",
-    why:"你又开始<b>派任务</b>了。建议来得太早、太满，会把她刚冒头的主动性按回去。"},
-   {t:"如果 0 是最糟、10 是你希望的样子——画完画的那晚，大概几分？现在呢？",good:true,
-    react:"她认真算了下：「那晚……5 分吧。现在，3 分。」",
-    tech:"量尺问句",
-    why:"量尺把模糊的情绪变成<b>能谈的刻度</b>。注意：重点永远是「你怎么到 5 的」，不是「为什么才 3」。"},
-   {t:"看来画画对你很重要，你该多跟爸妈聊聊。",good:false,
-    react:"她又警觉起来：「不用。」",
-    why:"自作主张替她安排了下一步，还把她<b>不一定信任的人</b>拉了进来。"}
+    why:"过早、过满的<b>任务式建议</b>，会把她刚冒头的主动性重新压回去。"},
+   {t:"如果用 0 到 10 来标，0 最糟、10 是你希望的状态——画完那晚大概几分？现在呢？",good:true,
+    react:"她认真想了想：「那晚……5 分吧。现在，3 分。」",
+    tech:"评量问句",
+    why:"量尺把模糊的情绪转化为<b>可对话的刻度</b>。关键始终是「你是怎么到 5 的」，而非「为何只有 3」。"},
+   {t:"看来画画对你很重要，你应该多跟父母聊聊。",good:false,
+    react:"她重新警觉起来：「不用。」",
+    why:"擅自替她安排下一步，还引入了<b>她未必信任的关系</b>，越过了她的节奏。"}
   ]},
  {line:"3 分。其实挺没用的吧，连画画都坚持不了。",
   opts:[
    {t:"对，所以更要逼自己坚持。",good:false,
-    react:"她把头埋进胳膊里。",
-    why:"你<b>顺着她的自我否定</b>，又加了一句鞭策。这会把那点微光直接浇灭。"},
-   {t:"我反而觉得——在那么累的时候你还能拿起笔，已经很不容易了。从 3 分往上挪「一点点」，会是件什么样的小事？",good:true,
-    react:"她沉默了几秒，小声说：「……周末不上课，画十分钟？」",
+    react:"她把头埋进了胳膊里。",
+    why:"顺着她的<b>自我否定</b>再施加鞭策，会直接熄灭那点刚出现的微光。"},
+   {t:"我反而觉得，在那么累的时候你还能拿起笔，已经很不容易。从 3 分往上挪「一点点」，会是件什么样的小事？",good:true,
+    react:"她沉默几秒，低声说：「……周末不上课，画十分钟？」",
     tech:"赞美 · 一小步",
-    why:"把「我没用」<b>翻译成</b>「你在最累时还坚持了」——这才是赞美（不是空夸）。然后只要「一点点」，让改变小到她敢迈出去。"},
-   {t:"别这么想，你超棒的！",good:false,
-    react:"她不太相信地看了你一眼。",
-    why:"空洞的「你真棒」她不会信。<b>赞美要落在具体的、她真做到的事</b>上。"}
+    why:"将「我没用」<b>重构</b>为「你在最累时仍坚持过」——这才是有依据的赞美，而非空泛夸奖；再以「一小步」把改变缩到她敢于迈出的尺度。"},
+   {t:"别这么想，你其实很棒的！",good:false,
+    react:"她半信半疑地看了你一眼。",
+    why:"空泛的「你真棒」缺乏说服力。<b>赞美须落在她真实做到的具体事上</b>。"}
   ]}
 ];
-const trustSteps=[3,4,5,6,7,9];           // trust after each completed turn (index = turns done)
+const trustSteps=[3,4,5,6,7,9];
 const trustLabels={3:"警惕",4:"试探",5:"松动",6:"愿意说",7:"开始信任",8:"信任",9:"信任"};
+const RING=603;
 
-/* ---------- elements ---------- */
-const stage=document.getElementById('stage'),charWrap=document.getElementById('charWrap'),
-  aura=document.querySelector('.aura'),mouth=document.getElementById('mouth'),browL=document.getElementById('browL'),
-  browR=document.getElementById('browR'),arms=document.getElementById('arms'),sketch=document.getElementById('sketch'),
-  fbubble=document.getElementById('fbubble'),
-  mFill=document.getElementById('mFill'),mLab=document.getElementById('mLab'),mBar=document.getElementById('mBar'),
-  who=document.getElementById('who'),youthLine=document.getElementById('youthLine'),opts=document.getElementById('opts'),
-  fb=document.getElementById('fb'),panel=document.getElementById('panel');
+const fig=document.getElementById('fig'),eyes=document.getElementById('eyes'),mouth=document.getElementById('mouth'),
+  mouthP=document.getElementById('mouthP'),browL=document.getElementById('browL'),browR=document.getElementById('browR'),
+  irisL=document.getElementById('irisL'),irisR=document.getElementById('irisR'),arms=document.getElementById('arms'),
+  sketch=document.getElementById('sketch'),ring=document.getElementById('ring'),
+  mFill=document.getElementById('mFill'),mNum=document.getElementById('mNum'),mLab=document.getElementById('mLab'),
+  youthLine=document.getElementById('youthLine'),opts=document.getElementById('opts'),fb=document.getElementById('fb'),scroller=document.getElementById('scroller');
 
 let idx=0, collected=[];
 
-/* mood: 'guarded' | 'thaw' | 'open' | 'smile' */
 function setMood(m){
-  charWrap.className='char-wrap breathe '+(m==='smile'?'open':m);
   if(m==='guarded'){
-    aura.setAttribute('stroke','#3f78b6');aura.style.opacity='.32';
-    mouth.setAttribute('d','M108 144 Q120 140 132 144');
-    browL.setAttribute('d','M95 104 L114 110');browR.setAttribute('d','M145 104 L126 110');
+    mouthP.setAttribute('d','M101 143 Q110 141 119 143');
+    browL.setAttribute('d','M82 100 Q92 100 102 104');browR.setAttribute('d','M118 104 Q128 100 138 100');
+    irisL.setAttribute('cx','89');irisR.setAttribute('cx','125');
     arms.style.opacity='1';arms.style.transform='none';
   }else if(m==='thaw'){
-    aura.setAttribute('stroke','#9a86a0');aura.style.opacity='.4';
-    mouth.setAttribute('d','M108 143 Q120 143 132 143');
-    browL.setAttribute('d','M95 106 L114 108');browR.setAttribute('d','M145 106 L126 108');
-    arms.style.opacity='.55';arms.style.transform='translateY(8px)';
-  }else if(m==='open'){
-    aura.setAttribute('stroke','#d9202c');aura.style.opacity='.5';
-    mouth.setAttribute('d','M108 142 Q120 148 132 142');
-    browL.setAttribute('d','M95 107 L114 107');browR.setAttribute('d','M145 107 L126 107');
-    arms.style.opacity='.25';arms.style.transform='translateY(16px)';
-  }else if(m==='smile'){
-    aura.setAttribute('stroke','#d9202c');aura.style.opacity='.6';stage.classList.add('warm');
-    mouth.setAttribute('d','M106 141 Q120 153 134 141');
-    browL.setAttribute('d','M95 108 L114 106');browR.setAttribute('d','M145 108 L126 106');
-    arms.style.opacity='.2';arms.style.transform='translateY(18px)';
+    mouthP.setAttribute('d','M101 142 Q110 143 119 142');
+    browL.setAttribute('d','M82 102 Q92 99 102 103');browR.setAttribute('d','M118 103 Q128 99 138 102');
+    irisL.setAttribute('cx','92');irisR.setAttribute('cx','128');
+    arms.style.opacity='.6';arms.style.transform='translateY(7px)';
+  }else{ // open / smile
+    mouthP.setAttribute('d','M100 141 Q110 148 120 141');
+    browL.setAttribute('d','M82 103 Q92 100 102 102');browR.setAttribute('d','M118 102 Q128 100 138 103');
+    irisL.setAttribute('cx','93');irisR.setAttribute('cx','129');
+    arms.style.opacity='.3';arms.style.transform='translateY(15px)';
   }
 }
 function setTrust(v){
-  mFill.style.width=(v/10*100)+'%';mLab.textContent=trustLabels[v]||"信任";
+  mFill.style.width=(v/10*100)+'%';mNum.textContent=v;mLab.textContent=trustLabels[v]||"信任";
+  ring.style.strokeDashoffset=RING*(1-v/10);
   if(v<=4)setMood('guarded');else if(v<=6)setMood('thaw');else setMood('open');
 }
+function react(good){
+  if(reduce)return;
+  if(good){
+    fig.animate([{transform:'translateY(0) scale(1)'},{transform:'translateY(-9px) scale(1.05)'},{transform:'translateY(0) scale(1)'}],{duration:560,easing:'cubic-bezier(.34,1.4,.5,1)'});
+    eyes.animate([{transform:'scaleY(1)'},{transform:'scaleY(1.18)'},{transform:'scaleY(1)'}],{duration:500});
+  }else{
+    fig.animate([{transform:'translateX(0) rotate(0)'},{transform:'translateX(7px) rotate(2.5deg)'},{transform:'translateX(-6px) rotate(-2deg)'},{transform:'translateX(4px) rotate(1.5deg)'},{transform:'translateX(0) rotate(0)'}],{duration:520});
+  }
+}
 
-/* typewriter */
 let typing=null;
 function typeLine(text,cb){
-  clearInterval(typing);youthLine.innerHTML='';
-  if(reduce){youthLine.textContent=text;cb&&cb();return;}
+  clearInterval(typing);youthLine.innerHTML='';mouth.classList.add('speaking');
+  const done=()=>{mouth.classList.remove('speaking');cb&&cb();};
+  if(reduce){youthLine.textContent=text;done();return;}
   let i=0;youthLine.innerHTML='<span class="cursor">|</span>';
-  typing=setInterval(()=>{
-    i++;youthLine.innerHTML=text.slice(0,i)+'<span class="cursor">|</span>';
-    if(i>=text.length){clearInterval(typing);youthLine.textContent=text;cb&&cb();}
-  },30);
-  youthLine.onclick=()=>{clearInterval(typing);youthLine.textContent=text;youthLine.onclick=null;cb&&cb();};
+  typing=setInterval(()=>{i++;youthLine.innerHTML=text.slice(0,i)+'<span class="cursor">|</span>';if(i>=text.length){clearInterval(typing);youthLine.textContent=text;done();}},32);
+  youthLine.onclick=()=>{clearInterval(typing);youthLine.textContent=text;youthLine.onclick=null;done();};
 }
 
-/* render a turn */
 function renderTurn(){
   fb.className='fb';fb.innerHTML='';opts.innerHTML='';
-  const T=turns[idx];
-  setTrust(trustSteps[idx]);
-  typeLine(T.line,()=>showOpts(T));
-}
-function showOpts(T){
-  T.opts.forEach((o,i)=>{
-    const b=document.createElement('button');b.className='opt';b.innerHTML=o.t;
-    b.onclick=()=>choose(o,b,T);
-    opts.appendChild(b);
-    setTimeout(()=>b.classList.add('show'),120+i*130);
+  const T=turns[idx];setTrust(trustSteps[idx]);
+  typeLine(T.line,()=>{
+    T.opts.forEach((o,i)=>{
+      const b=document.createElement('button');b.className='opt';b.innerHTML=o.t;
+      b.onclick=()=>choose(o,b);opts.appendChild(b);
+      setTimeout(()=>b.classList.add('show'),110+i*120);
+    });
   });
 }
-function choose(o,btn,T){
+function choose(o,btn){
   [...opts.children].forEach(b=>b.disabled=true);
+  react(o.good);
   if(o.good){
-    btn.classList.add('good');
-    [...opts.children].forEach(b=>{if(b!==btn)b.classList.add('dim');});
+    btn.classList.add('good');[...opts.children].forEach(b=>{if(b!==btn)b.classList.add('dim');});
     if(o.flag==='sketch')sketch.classList.add('on');
-    // bump trust toward next
-    const nt=trustSteps[idx+1]!==undefined?trustSteps[idx+1]:9;setTrust(nt);
-    sayBubble("✓");
+    setTrust(trustSteps[idx+1]!==undefined?trustSteps[idx+1]:9);
     if(o.tech)collected.push(o.tech);
     fb.className='fb good show';
-    fb.innerHTML='<div class="fb-react">'+o.react+'</div>'+
-      '<div class="fb-head"><span class="fb-mark">说对了</span><span class="fb-tech">'+o.tech+'</span></div>'+
-      '<div class="fb-why">'+o.why+'</div>';
-    const nx=document.createElement('button');nx.className='nextbtn go';
-    nx.textContent=(idx<turns.length-1)?'继续 →':'看看结果 →';
-    nx.onclick=()=>{idx++;(idx<turns.length)?renderTurn():winGame();fb.scrollIntoView&&panel.scrollTo({top:0,behavior:'smooth'});};
+    fb.innerHTML='<div class="fb-react">'+o.react+'</div><div class="fb-head"><span class="fb-mark">关系推进 ↑</span><span class="fb-tech">'+o.tech+'</span></div><div class="fb-why">'+o.why+'</div>';
+    const nx=document.createElement('button');nx.className='nextbtn go';nx.textContent=(idx<turns.length-1)?'继续 →':'查看结果 →';
+    nx.onclick=()=>{idx++;(idx<turns.length)?renderTurn():winGame();scroller.scrollTo({top:0,behavior:'smooth'});};
     fb.appendChild(nx);
   }else{
     btn.classList.add('bad');
-    mBar.classList.add('shake');setTimeout(()=>mBar.classList.remove('shake'),400);
-    sayBubble("…");
     fb.className='fb bad show';
-    fb.innerHTML='<div class="fb-react">'+o.react+'</div>'+
-      '<div class="fb-head"><span class="fb-mark">关系受损</span></div>'+
-      '<div class="fb-why">'+o.why+'</div>';
-    const rt=document.createElement('button');rt.className='nextbtn retry';rt.textContent='再选一次 ↺';
+    fb.innerHTML='<div class="fb-react">'+o.react+'</div><div class="fb-head"><span class="fb-mark">关系受挫 ↓</span></div><div class="fb-why">'+o.why+'</div>';
+    const rt=document.createElement('button');rt.className='nextbtn retry';rt.textContent='重新回应 ↺';
     rt.onclick=()=>{fb.className='fb';fb.innerHTML='';[...opts.children].forEach(b=>{b.disabled=false;b.classList.remove('bad','dim');});};
     fb.appendChild(rt);
   }
-  panel.scrollTo({top:panel.scrollHeight,behavior:'smooth'});
+  scroller.scrollTo({top:scroller.scrollHeight,behavior:'smooth'});
 }
-function sayBubble(s){fbubble.textContent=s;fbubble.classList.add('on');setTimeout(()=>fbubble.classList.remove('on'),1300);}
 
-/* win */
 function winGame(){
-  setMood('smile');setTrust(9);
+  setMood('open');setTrust(9);
+  fig.animate([{transform:'translateY(0)'},{transform:'translateY(-10px)'},{transform:'translateY(0)'}],{duration:700,easing:'cubic-bezier(.34,1.4,.5,1)'});
   const w=document.getElementById('win');w.classList.remove('hide');
   const wt=document.getElementById('winTechs');wt.innerHTML='';
-  [...new Set(collected)].forEach((t,i)=>{
-    const c=document.createElement('span');c.className='wtech';c.textContent=t;wt.appendChild(c);
-    setTimeout(()=>c.classList.add('show'),200+i*150);
-  });
+  [...new Set(collected)].forEach((t,i)=>{const c=document.createElement('span');c.className='wtech';c.textContent=t;wt.appendChild(c);setTimeout(()=>c.classList.add('show'),200+i*140);});
 }
 
-/* intro */
 const intro=document.getElementById('intro');
-document.querySelectorAll('.obs-row').forEach((r,i)=>setTimeout(()=>r.classList.add('show'),400+i*220));
-document.getElementById('startBtn').onclick=()=>{intro.classList.add('hide');setTimeout(()=>intro.style.display='none',600);renderTurn();};
-document.getElementById('againBtn').onclick=()=>{
-  idx=0;collected=[];stage.classList.remove('warm');sketch.classList.remove('on');
-  document.getElementById('win').classList.add('hide');setTimeout(()=>document.getElementById('win').classList.add('hide'),10);
-  renderTurn();
-};
+document.querySelectorAll('.obs-row').forEach((r,i)=>setTimeout(()=>r.classList.add('show'),350+i*200));
+document.getElementById('startBtn').onclick=()=>{intro.classList.add('hide');setTimeout(()=>intro.style.display='none',500);renderTurn();};
+document.getElementById('againBtn').onclick=()=>{idx=0;collected=[];sketch.classList.remove('on');document.getElementById('win').classList.add('hide');renderTurn();};
 setTrust(3);
 </script>
 </body>
